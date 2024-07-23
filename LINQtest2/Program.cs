@@ -30,6 +30,22 @@ Suma: {numbers.Sum()}
 Liczby: {String.Join(", ", numbers)}");
 
             Console.WriteLine();
+
+            var listOfObjects = new List<PrintWhenGetting>();
+            for(int i=1; i<5; i++)
+                listOfObjects.Add(new PrintWhenGetting() { InstanceNumber = i});
+
+            Console.WriteLine("Przygotowanie kwerendy");
+            var result =
+                from o in listOfObjects
+                select o.InstanceNumber;
+
+            Console.WriteLine("Uruchamianie pętli foreach");
+            foreach (var number in result)
+                Console.WriteLine($"Zapis nr {number}");
+
+            //przetwarzanie odroczone - getter jest wywoływany dopiero po użyciu metody przetwarzającej całą sekwencję
+            var immediate = result.ToList();
         }
     }
 }
